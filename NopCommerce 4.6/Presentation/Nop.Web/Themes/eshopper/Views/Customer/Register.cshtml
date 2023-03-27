@@ -2,6 +2,13 @@
 @using Nop.Web.Extensions
 @using Nop.Web.Models.Customer;
 @using System.Text.Encodings.Web
+@using Nop.Core
+@using Nop.Services.Seo
+@using Nop.Services.Topics
+
+@inject IStoreContext storeContext;
+@inject ITopicService topicService;
+@inject IUrlRecordService urlRecordService;
 @{
     Layout = "_ColumnsTwo";
 
@@ -437,7 +444,7 @@
                                 }
                                 else
                                 {
-                                    <a class="read" id="read-privacyinfo" href="@Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("privacyinfo") })">@T("Account.Fields.AcceptPrivacyPolicy.Read")</a>
+                                    <a class="read" id="read-privacyinfo" href="@Url.RouteUrl("Topic", new { SeName = await urlRecordService.GetSeNameAsync(topicService.GetTopicBySystemNameAsync("shippinginfo", storeContext.GetCurrentStoreAsync().Result.Id).Result) })">@T("Account.Fields.AcceptPrivacyPolicy.Read")</a>
                                 }
                             </div>
                         }

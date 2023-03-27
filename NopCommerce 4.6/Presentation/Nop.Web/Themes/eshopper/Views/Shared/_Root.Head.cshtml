@@ -33,10 +33,10 @@
 <!DOCTYPE html>
 <html lang="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName" dir="@Html.GetUIDirection(!await Html.ShouldUseRtlThemeAsync())" class="@NopHtml.GeneratePageCssClasses()">
 <head>
-    <title>@NopHtml.GenerateTitle()</title>
+    <title>@await NopHtml.GenerateTitleAsync()</title>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
-    <meta name="description" content="@NopHtml.GenerateMetaDescription()" />
-    <meta name="keywords" content="@NopHtml.GenerateMetaKeywords()" />
+    <meta name="description" content="@await NopHtml.GenerateMetaDescriptionAsync()" />
+    <meta name="keywords" content="@await NopHtml.GenerateMetaKeywordsAsync()" />
     <meta name="generator" content="nopCommerce" />
     @NopHtml.GenerateHeadCustom()
     @*This is used so that themes can inject content into the header*@

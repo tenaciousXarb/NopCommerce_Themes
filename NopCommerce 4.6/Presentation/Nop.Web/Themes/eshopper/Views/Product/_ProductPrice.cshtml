@@ -4,7 +4,15 @@
 @using Nop.Core.Infrastructure
 @using Nop.Web.Models.Catalog;
 @using System.Text.RegularExpressions;
+@using Nop.Core
+@using Nop.Services.Seo
+@using Nop.Services.Topics
+
 @inject IWorkContext workContext
+@inject IStoreContext storeContext;
+@inject ITopicService topicService;
+@inject IUrlRecordService urlRecordService;
+
 <div class="prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
     @if (Model.CustomerEntersPrice)
     {
@@ -70,7 +78,7 @@
             //tax info is already included in the price (incl/excl tax). that's why we display only shipping info here
             //of course, you can modify appropriate locales to include VAT info there
             <div class="tax-shipping-info">
-                @T(inclTax ? "Products.Price.TaxShipping.InclTax" : "Products.Price.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("shippinginfo") }))
+                @T(inclTax ? "Products.Price.TaxShipping.InclTax" : "Products.Price.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = await urlRecordService.GetSeNameAsync(topicService.GetTopicBySystemNameAsync("shippinginfo", storeContext.GetCurrentStoreAsync().Result.Id).Result) }))
             </div>
         }
         if (!String.IsNullOrEmpty(Model.CurrencyCode))

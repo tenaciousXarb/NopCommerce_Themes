@@ -6,10 +6,10 @@
 <!DOCTYPE html>
 <html @Html.Partial("LanguageAttributes")>
 <head>
-    <title>@NopHtml.GenerateTitle(true)</title>
+    <title>@await NopHtml.GenerateTitleAsync(true)</title>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
-    <meta name="description" content="@NopHtml.GenerateMetaDescription()" />
-    <meta name="keywords" content="@NopHtml.GenerateMetaKeywords()" />
+    <meta name="description" content="@await NopHtml.GenerateMetaDescriptionAsync()" />
+    <meta name="keywords" content="@await NopHtml.GenerateMetaKeywordsAsync()" />
     @NopHtml.GenerateCssFiles()
     @NopHtml.GenerateScripts(ResourceLocation.Head)
     @NopHtml.GenerateCanonicalUrls()

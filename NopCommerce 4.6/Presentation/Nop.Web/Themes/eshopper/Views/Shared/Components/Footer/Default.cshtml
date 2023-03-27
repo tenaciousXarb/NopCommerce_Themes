@@ -1,7 +1,14 @@
 ﻿@model FooterModel
 @using Nop.Core
 @using Nop.Core.Domain.Tax
+@using Nop.Core
+@using Nop.Services.Seo
+@using Nop.Services.Topics
+
 @inject IWorkContext workContext;
+@inject IStoreContext storeContext;
+@inject ITopicService topicService;
+@inject IUrlRecordService urlRecordService;
 
 <footer id="footer" class="footer">
 
@@ -200,7 +207,7 @@
                     {
                         var inclTax = await workContext.GetTaxDisplayTypeAsync() == TaxDisplayType.IncludingTax;
                         <div class="footer-tax-shipping text-center">
-                            @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = Html.GetTopicSeNameAsync("shippinginfo") }))
+                            @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = urlRecordService.GetSeNameAsync(topicService.GetTopicBySystemNameAsync("shippinginfo", storeContext.GetCurrentStoreAsync().Result.Id).Result) }))
                         </div>
                     }
                     <div class="text-center">
